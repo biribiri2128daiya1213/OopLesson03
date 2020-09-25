@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Chapter3 {
 	class Program {
 		static void Main(string[] args) {
-			var list = new List<string>{
+			var names = new List<string>{
 				"Tokyo",
 				"New Delhi",
 				"Bangkok",
@@ -20,9 +20,15 @@ namespace Chapter3 {
 				"Hong Kong",
 			};
 
-			IEnumerable<string> query = list.Where(s => s.Length <= 5);
-			foreach (string s in query) {
-				Console.WriteLine(s);
+			var query = names.Where(s => s.Length <= 5).ToList();
+			foreach (var item in query) {
+				Console.WriteLine(item);
+			}
+			Console.WriteLine("-----------");
+
+			names[0] = "Osaka";
+			foreach (var item in query) {
+				Console.WriteLine(item);
 			}
 
 
