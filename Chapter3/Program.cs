@@ -20,23 +20,12 @@ namespace Chapter3 {
 				"Hong Kong",
 			};
 
-			//var exists = list.Exists(s => s[0] == 'L');
-			//var name = list.Find(s => s.Length == 6);
-			//var index = list.FindIndex(s => s.Length == 6);
-			//var names = list.FindAll(s => s.Length <= 5);
-			//list.FindAll(s => s.Length <= 5).ForEach(s => Console.WriteLine(s));
-			list.ConvertAll(s => s.ToUpper()).ForEach(s => Console.WriteLine(s));
+			IEnumerable<string> query = list.Where(s => s.Length <= 5);
+			foreach (string s in query) {
+				Console.WriteLine(s);
+			}
 
 
-
-
-
-			//Console.WriteLine(exists);
-			//Console.WriteLine(name);
-			//Console.WriteLine(index);
-			//foreach (var name in names) {
-			//	Console.WriteLine(name);
-			//}
 		}
 	}
 }
