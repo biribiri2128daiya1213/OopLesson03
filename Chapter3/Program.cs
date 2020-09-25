@@ -9,29 +9,12 @@ using System.Threading.Tasks;
 namespace Chapter3 {
 	class Program {
 		static void Main(string[] args) {
-			var names = new List<string>{
-				"Tokyo",
-				"New Delhi",
-				"Bangkok",
-				"London",
-				"Paris",
-				"Berlin",
-				"Canberra",
-				"Hong Kong",
+			var numbers = new List<int> {
+				12,87,94,14,53,20,40,35,76,91,31,17,48,
 			};
 
-			var query = names.Where(s => s.Length <= 5).ToList();
-			foreach (var item in query) {
-				Console.WriteLine(item);
-			}
-			Console.WriteLine("-----------");
-
-			names[0] = "Osaka";
-			foreach (var item in query) {
-				Console.WriteLine(item);
-			}
-
-
+			var exists = numbers.Exists(n => n % 8 == 0 || n % 9 == 0);
+			Console.WriteLine(exists);
 		}
 	}
 }
