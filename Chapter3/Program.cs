@@ -13,9 +13,14 @@ namespace Chapter3 {
 				12,87,94,14,53,20,40,35,76,91,31,17,48,
 			};
 
-			var nums = numbers.Where(n => n >= 50);
+			var list = new List<int>();
+			var nums = numbers.Select(n => n * 2);
 
 			foreach (var n in nums) {
+				list.Add(n);
+			}
+
+			foreach (var n in list) {
 				Console.WriteLine(n);
 			}
 		}
