@@ -15,28 +15,34 @@ namespace Chapter3 {
 			};
 
 			#region 3-2-1
-			//var line = Console.ReadLine();
-
-			//var index = names.FindIndex(s => s == line);
-			//Console.WriteLine($"{index}番目");
+			Console.WriteLine("-----3.2.1-----");
+			while (true) {
+				Console.WriteLine("都市名を入力。空行で終了");
+				var line = Console.ReadLine();
+				if (string.IsNullOrEmpty(line))
+					break;
+				var index = names.FindIndex(s => s == line);
+				Console.WriteLine(index);
+			}
 			#endregion
 
 			#region 3-2-2
-			//var count = names.Count(s => s.Contains('o'));
-			//Console.WriteLine(count);
+			Console.WriteLine("\n-----3.2.2-----");
+			var count = names.Count(s => s.Contains('o'));
+			Console.WriteLine(count);
 			#endregion
 
-			#region 3-2-3			
-			//var list = names.Where(s => s.Contains('o'));
-			//string[] array = list.ToArray();
-
-			//foreach (var n in array) {
-			//	Console.WriteLine(n);
-			//}
+			#region 3-2-3	
+			Console.WriteLine("\n-----3.2.3-----");
+			var array = names.Where(s => s.Contains('o')).ToArray();
+			foreach (var name in array) {
+				Console.WriteLine(name);
+			}
 			#endregion
 
 			#region 3-2-4
-			var length = names.Where(s => s[0] == 'B').Select(s => s.Length);
+			Console.WriteLine("\n-----3.2.4-----");
+			var length = names.Where(s => s.StartsWith("B")).Select(s => s.Length);
 			foreach (var len in length) {
 				Console.WriteLine(len);
 			}
