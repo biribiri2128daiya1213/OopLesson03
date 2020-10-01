@@ -2,24 +2,33 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace chapter04 {
 	class Program {
 		static void Main(string[] args) {
-			string code = "12345";
+			Console.WriteLine(GetProduct());
+		}
 
-			var message = GetMessage(code) ?? DefaultMessage();
-			Console.WriteLine(message);
+		private static string GetProduct() {
+			Sale sale = new Sale {
+				ShopName = "pet store",
+				Amount = 100000,
+				Product = "food",
+			};
+			sale = null;
+			return sale?.Product;
 		}
-		//スタブ
-		private static object DefaultMessage() {
-			return "DefaultMessage";
-		}
-		//スタブ
-		private static object GetMessage(string code) {
-			return code;
-		}
+	}
+
+	class Sale {
+		//店舗名
+		public string ShopName { get; set; }
+		//売上高
+		public int Amount { get; set; }
+		public string Product { get; set; }
+
 	}
 }
