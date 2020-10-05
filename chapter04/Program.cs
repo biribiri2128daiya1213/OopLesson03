@@ -1,5 +1,4 @@
-﻿using Chapter3;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace chapter04 {
+namespace Chapter04 {
 	class Program {
 		static void Main(string[] args) {
 			//4-2-1

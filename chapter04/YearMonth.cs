@@ -5,7 +5,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chapter3 {
+namespace Chapter04 {
 	class YearMonth {
 		//プロパティ
 		public int Year { get; private set; }
