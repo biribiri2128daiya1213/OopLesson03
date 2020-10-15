@@ -87,6 +87,20 @@ namespace Chapter06 {
 				Console.WriteLine($"タイトル:{b.Title}");
 			}
 
+			//EX
+			Console.WriteLine("\n-----EX(すべての書籍のC#の数)-----");
+			int count = 0;
+			foreach (var b in books) {
+				for (int i = 0; i < b.Title.Length - 1; i++) {
+					if (b.Title[i].Equals('C') && b.Title[i + 1].Equals('#')) {
+						count++;
+					}
+				}
+			}
+			Console.WriteLine(count);
+
+
+
 			Console.WriteLine();
 		}
 	}
