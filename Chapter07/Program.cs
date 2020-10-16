@@ -11,51 +11,56 @@ using System.Xml;
 namespace Chapter07 {
 	class Program {
 		static void Main(string[] args) {
-			var dict = new Dictionary<string, List<string>>();
-			string menu = "";
-			var flag = true;
-			Console.WriteLine("**********************");
-			Console.WriteLine("* 辞書登録プログラム *");
-			Console.WriteLine("**********************");
-			do {
-				do {
-					Console.WriteLine("1．登録　2．内容を表示　3．終了");
-					menu = Console.ReadLine();
-				} while (menu != "1" && menu != "2" && menu != "3");
-
-				switch (menu) {
-					case "1":
-						Console.Write("KEYを入力:");
-						var key = Console.ReadLine();
-						Console.Write("VALUEを入力:");
-						var value = Console.ReadLine();
-						if (dict.ContainsKey(key)) {
-							dict[key].Add(value);
-						} else {
-							dict[key] = new List<string> { value };
-						}
-						Console.WriteLine("登録しました！");
-						break;
-					case "2":
-						if (dict.Count != 0) {
-							foreach (var d in dict) {
-								foreach (var term in d.Value) {
-									Console.WriteLine("{0} : {1}", d.Key, term);
-								}
-							}
-							Console.WriteLine();
-						} else {
-							Console.WriteLine("登録されていません");
-						}
-						break;
-					case "3":
-						flag = false;
-						break;
-					default:
-						break;
+			string _text = "Cozy lummox gives smart squid who asks for job pen";
+			//7-1-1
+			Console.WriteLine("\n-----7.1.1(英字のカウント)-----");
+			var dict = new Dictionary<char, int>();
+			foreach (var t in _text.ToUpper()) {
+				if ('A' <= t && t <= 'Z') {
+					if (dict.ContainsKey(t)) {
+						dict[t]++;
+					} else {
+						dict[t] = 1;
+					}
 				}
-				Console.WriteLine();
-			} while (flag);
+			}
+			foreach (var d in dict.OrderBy(x => x.Key)) {
+				Console.WriteLine($"'{d.Key}' : {d.Value}");
+			}
+
+			//7-1-2
+			Console.WriteLine("\n-----7.1.2(英字のカウント2)-----");
+			var sortdict = new SortedDictionary<char, int>();
+			foreach (var t in _text.ToUpper()) {
+				if ('A' <= t && t <= 'Z') {
+					if (sortdict.ContainsKey(t)) {
+						sortdict[t]++;
+					} else {
+						sortdict[t] = 1;
+					}
+				}
+			}
+			foreach (var d in sortdict) {
+				Console.WriteLine($"'{d.Key}':{d.Value}");
+			}
+
+			//7-2-3
+			Console.WriteLine("\n-----7.2.3(CountとRemoveの確認)-----");
+			var abb = new Abbreviations();
+			Console.WriteLine($"行数:{abb.Count}");
+			Console.Write("削除する省略語:");
+			var abbre = Console.ReadLine();
+			Console.WriteLine(abb.Remove(abbre) ? "削除しました" : "削除できませんでした");
+			Console.WriteLine($"行数:{abb.Count}");
+
+			//7-2-4
+			Console.WriteLine("\n-----7.2.4(3文字の省略語一覧)-----");
+			foreach (var a in abb.ThreeAbb()) {
+				Console.WriteLine($"{a.Key}={a.Value}");
+			}
+			Console.WriteLine();
+			
+			
 		}
 	}
 }
