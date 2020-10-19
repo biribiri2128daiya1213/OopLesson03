@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Chapter07 {
-    class Abbreviations {
+    class Abbreviations : IEnumerable<KeyValuePair<string, string>> {
         private Dictionary<string, string> _dict = new Dictionary<string, string>();
         public int Count
         {
@@ -53,6 +54,14 @@ namespace Chapter07 {
         }
         public bool Remove(string abb) {
             return _dict.Remove(abb);
+        }
+
+        public IEnumerator<KeyValuePair<string, string>> GetEnumerator() {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            throw new NotImplementedException();
         }
     }
 }

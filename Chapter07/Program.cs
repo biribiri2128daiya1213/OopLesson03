@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml;
 
 namespace Chapter07 {
-	class Program {
+	class Program{
 		static void Main(string[] args) {
 			string _text = "Cozy lummox gives smart squid who asks for job pen";
 			//7-1-1
@@ -58,6 +58,11 @@ namespace Chapter07 {
 			foreach (var a in abb.ThreeAbb()) {
 				Console.WriteLine($"{a.Key}={a.Value}");
 			}
+			//インターフェースを実装
+			//foreach (var a in abb.Where(x => x.Key.Length == 3)) {
+			//	Console.WriteLine($"{a.Key}={a.Value}");
+			//}
+			
 			Console.WriteLine();
 			
 			
