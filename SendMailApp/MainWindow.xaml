@@ -5,8 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SendMailApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="メール送信アプリ" Height="500" Width="600" Background="Azure">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="件名：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Grid.Column="1" Margin="4"/>
+
+        <TextBlock Grid.Row="1" Text="To：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Margin="4"/>
+
+        <TextBlock Grid.Row="2" Text="Cc：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Margin="4"/>
+
+        <TextBlock Grid.Row="3" Text="Bcc：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Margin="4"/>
+
+        <TextBlock Grid.Row="4" Text="本文：" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="2" Margin="4"/>
+
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="送信" Width="100" Margin="10,10,3,10"/>
+            <Button Content="キャンセル" Width="100" Margin="10,10,3,10"/>
+        </StackPanel>
     </Grid>
 </Window>
