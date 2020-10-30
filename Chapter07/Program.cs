@@ -64,8 +64,6 @@ namespace Chapter07 {
 			//}
 			
 			Console.WriteLine();
-			
-			
 		}
 	}
 }
