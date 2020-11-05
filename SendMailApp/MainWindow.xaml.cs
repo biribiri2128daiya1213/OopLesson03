@@ -38,11 +38,28 @@ namespace SendMailApp {
 
 		private void btOK_Click(object sender, RoutedEventArgs e) {
 			try {
+				//MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text, tbTitle.Text, tbBody.Text);
+
 				MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text);
 
 				msg.Subject = tbTitle.Text; //件名
 				msg.Body = tbBody.Text; //本文
+
 				
+				if (tbCc.Text != "") {
+					string[] CcAddress = tbCc.Text.Split(',');
+					foreach (var c in CcAddress) {
+						msg.CC.Add(c);
+					}
+				}
+				if (tbBcc.Text != "") {
+					string[] BccAddress = tbBcc.Text.Split(',');
+					foreach (var b in BccAddress) {
+						msg.Bcc.Add(b);
+					}
+				}
+
+
 				sc.Host = "smtp.gmail.com"; //smtpサーバの設定
 				sc.Port = 587;
 				sc.EnableSsl = true;
