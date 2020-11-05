@@ -40,23 +40,24 @@ namespace SendMailApp {
 			try {
 				//MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text, tbTitle.Text, tbBody.Text);
 
+				char[] separation = " ;/，、".ToArray();
+
+				foreach (var s in separation) {
+					tbTo.Text = tbTo.Text.Replace(s.ToString(), ",");
+					tbCc.Text = tbCc.Text.Replace(s.ToString(), ",");
+					tbBcc.Text = tbBcc.Text.Replace(s.ToString(), ",");
+				}
+
 				MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text);
 
 				msg.Subject = tbTitle.Text; //件名
 				msg.Body = tbBody.Text; //本文
 
-				
 				if (tbCc.Text != "") {
-					string[] CcAddress = tbCc.Text.Split(',');
-					foreach (var c in CcAddress) {
-						msg.CC.Add(c);
-					}
+					msg.CC.Add(tbCc.Text);
 				}
 				if (tbBcc.Text != "") {
-					string[] BccAddress = tbBcc.Text.Split(',');
-					foreach (var b in BccAddress) {
-						msg.Bcc.Add(b);
-					}
+					msg.Bcc.Add(tbBcc.Text);
 				}
 
 
