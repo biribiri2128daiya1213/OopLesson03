@@ -20,23 +20,23 @@
             <ColumnDefinition Width="9*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="件名：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbTitle" Grid.Column="1" Margin="4"/>
+        <TextBox x:Name="tbTitle" Grid.Column="1" Margin="4" FontSize="18"/>
 
         <TextBlock Grid.Row="1" Text="To  ：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbTo" Grid.Row="1" Grid.Column="2" Margin="4"/>
+        <TextBox x:Name="tbTo" Grid.Row="1" Grid.Column="2" Margin="4" FontSize="18"/>
 
         <TextBlock Grid.Row="2" Text="Cc  ：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbCc" Grid.Row="2" Grid.Column="2" Margin="4"/>
+        <TextBox x:Name="tbCc" Grid.Row="2" Grid.Column="2" Margin="4" FontSize="18"/>
 
         <TextBlock Grid.Row="3" Text="Bcc ：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbBcc" Grid.Row="3" Grid.Column="2" Margin="4"/>
+        <TextBox x:Name="tbBcc" Grid.Row="3" Grid.Column="2" Margin="4" FontSize="18"/>
 
         <TextBlock Grid.Row="4" Text="本文：" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbBody" Grid.Row="4" Grid.Column="2" Margin="4"/>
+        <TextBox x:Name="tbBody" Grid.Row="4" Grid.Column="2" Margin="4" FontSize="18"/>
 
         <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="キャンセル" Width="100" Margin="5"/>
-            <Button Content="送信" Width="100" Margin="5"/>
+            <Button x:Name="btCancel" Content="キャンセル" Width="100" Margin="5" Click="btCancel_Click"/>
+            <Button x:Name="btOK" Content="送信" Width="100" Margin="5" Click="btOK_Click"/>
         </StackPanel>
     </Grid>
 </Window>
