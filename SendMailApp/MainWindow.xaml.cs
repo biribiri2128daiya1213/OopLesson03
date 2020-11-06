@@ -28,6 +28,10 @@ namespace SendMailApp {
 			sc.SendCompleted += Sc_SendCompleted;
 		}
 
+		private void Window_Loaded(object sender, RoutedEventArgs e) {
+			
+		}
+
 		private void Sc_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e) {
 			if (e.Cancelled) {
 				MessageBox.Show("送信はキャンセルされました");
@@ -76,6 +80,20 @@ namespace SendMailApp {
 		private void btCancel_Click(object sender, RoutedEventArgs e) {
 			sc.SendAsyncCancel();
 		}
-		
+
+		private void btConfig_Click(object sender, RoutedEventArgs e) {
+			Config cf = Config.GetInstance();
+			ConfigWindow configWindow = new ConfigWindow();
+			configWindow.tbSmtp.Text = cf.Smtp;
+			configWindow.tbPassWord.Password = cf.PassWord;
+			configWindow.tbSender.Text = configWindow.tbName.Text= cf.MailAddress;
+			configWindow.tbPort.Text = cf.Port.ToString();
+			configWindow.cbSsl.IsChecked = cf.Ssl;
+
+			configWindow.ShowDialog();
+			
+		}
+
+
 	}
 }

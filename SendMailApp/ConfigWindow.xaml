@@ -10,7 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <GroupBox Grid.Row="0" Header="送信情報" Margin="5,10" BorderBrush="Black">
@@ -26,20 +26,20 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                
+
                 <TextBlock Text="SMTPサーバー：" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox x:Name="tbSmtp" Grid.Column="1" Margin="5"/>
+                <TextBox x:Name="tbSmtp" FontSize="18" Grid.Column="1" Margin="5"/>
 
                 <TextBlock Text="ユーザー名：" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                <TextBox x:Name="tbName" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
                 <TextBlock Text="ポート：" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox x:Name="tbPort" Grid.Column="3" Margin="5"/>
+                <TextBox x:Name="tbPort" FontSize="18" Grid.Column="3" Margin="5"/>
 
                 <TextBlock Text="パスワード：" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <PasswordBox x:Name="tbPassWord" Grid.Row="1" Grid.Column="3" Margin="5"/>
+                <PasswordBox x:Name="tbPassWord" FontSize="18" Grid.Row="1" Grid.Column="3" Margin="5"/>
 
-                <CheckBox x:Name="cdSsl" Grid.Row="2" Grid.Column="3" Content="SSL有効"
+                <CheckBox x:Name="cbSsl" Grid.Row="2" Grid.Column="3" Content="SSL有効"
                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </GroupBox>
@@ -55,14 +55,25 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                
+
                 <TextBlock Text="送信元：" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox x:Name="tbSender" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                <TextBox x:Name="tbSender" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5"/>
             </Grid>
         </GroupBox>
-
-        <StackPanel Grid.Row="2">
-
-        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btDefault" Content="初期値" Width="80" Margin="10" Click="btDefault_Click"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button x:Name="btOk" Content="OK" Width="80" Margin="10"/>
+                <Button x:Name="brCancel" Content="キャンセル" Width="80" Margin="10"/>
+                <Button x:Name="btApply" Content="適用" Width="80" Margin="10" Click="btApply_Click"/>
+            </StackPanel>
+            
+        </Grid>
     </Grid>
 </Window>

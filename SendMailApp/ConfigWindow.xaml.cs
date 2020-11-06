@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,26 @@ namespace SendMailApp {
 	public partial class ConfigWindow : Window {
 		public ConfigWindow() {
 			InitializeComponent();
+		}
+
+		private void btDefault_Click(object sender, RoutedEventArgs e) {
+			Config cf = (Config.GetInstance()).getDefaultStatus();
+			tbName.Text = tbSender.Text = cf.MailAddress;
+			tbSmtp.Text = cf.Smtp;
+			tbPassWord.Password = cf.PassWord;
+			tbPort.Text = cf.Port.ToString();
+			cbSsl.IsChecked = cf.Ssl;
+		}
+
+		private void btApply_Click(object sender, RoutedEventArgs e) {
+			Config.GetInstance().UpdateStatus(
+			tbSender.Text,
+			tbSmtp.Text,
+			tbPassWord.Password,
+			int.Parse(tbPort.Text),
+			(bool)cbSsl.IsChecked
+			);
+			
 		}
 	}
 }
