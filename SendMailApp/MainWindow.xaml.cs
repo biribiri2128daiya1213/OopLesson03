@@ -82,14 +82,7 @@ namespace SendMailApp {
 		}
 
 		private void btConfig_Click(object sender, RoutedEventArgs e) {
-			Config cf = Config.GetInstance();
 			ConfigWindow configWindow = new ConfigWindow();
-			configWindow.tbSmtp.Text = cf.Smtp;
-			configWindow.tbPassWord.Password = cf.PassWord;
-			configWindow.tbSender.Text = configWindow.tbName.Text= cf.MailAddress;
-			configWindow.tbPort.Text = cf.Port.ToString();
-			configWindow.cbSsl.IsChecked = cf.Ssl;
-
 			configWindow.ShowDialog();
 			
 		}

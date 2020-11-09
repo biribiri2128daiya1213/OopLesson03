@@ -33,13 +33,31 @@ namespace SendMailApp {
 
 		private void btApply_Click(object sender, RoutedEventArgs e) {
 			Config.GetInstance().UpdateStatus(
-			tbSender.Text,
 			tbSmtp.Text,
+			tbName.Text,//tbSender
 			tbPassWord.Password,
 			int.Parse(tbPort.Text),
-			(bool)cbSsl.IsChecked
+			cbSsl.IsChecked ?? false
 			);
 			
+		}
+		//キャンセルボタン
+		private void brCancel_Click(object sender, RoutedEventArgs e) {
+			this.Close();
+		}
+		//OKボタン
+		private void btOk_Click(object sender, RoutedEventArgs e) {
+			btApply_Click(sender, e);
+			this.Close();
+		}
+
+		private void Window_Loaded(object sender, RoutedEventArgs e) {
+			Config cf = Config.GetInstance();
+			tbSmtp.Text = cf.Smtp;
+			tbPassWord.Password = cf.PassWord;
+			tbSender.Text = tbName.Text = cf.MailAddress;
+			tbPort.Text = cf.Port.ToString();
+			cbSsl.IsChecked = cf.Ssl;
 		}
 	}
 }

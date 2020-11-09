@@ -51,8 +51,6 @@ namespace SendMailApp {
 			this.Ssl = ssl;
 			return true;
 		}
-
-		//設定データ表示
 		
 	}
 }
