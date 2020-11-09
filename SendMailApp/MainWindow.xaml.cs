@@ -22,6 +22,7 @@ namespace SendMailApp {
 	public partial class MainWindow : Window {
 
 		SmtpClient sc = new SmtpClient();
+		Config config = Config.GetInstance();
 
 		public MainWindow() {
 			InitializeComponent();
@@ -52,7 +53,7 @@ namespace SendMailApp {
 					tbBcc.Text = tbBcc.Text.Replace(s.ToString(), ",");
 				}
 
-				MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text);
+				MailMessage msg = new MailMessage(config.MailAddress, tbTo.Text);
 
 				msg.Subject = tbTitle.Text; //件名
 				msg.Body = tbBody.Text; //本文
@@ -64,11 +65,10 @@ namespace SendMailApp {
 					msg.Bcc.Add(tbBcc.Text);
 				}
 
-
-				sc.Host = "smtp.gmail.com"; //smtpサーバの設定
-				sc.Port = 587;
-				sc.EnableSsl = true;
-				sc.Credentials = new NetworkCredential("ojsinfosys01@gmail.com", "ojsInfosys2020");
+				sc.Host = config.Smtp; //smtpサーバの設定
+				sc.Port = config.Port;
+				sc.EnableSsl = config.Ssl;
+				sc.Credentials = new NetworkCredential(config.MailAddress, config.PassWord);
 
 				sc.SendMailAsync(msg); //送信
 
