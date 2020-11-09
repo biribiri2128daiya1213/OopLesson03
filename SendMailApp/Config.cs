@@ -5,12 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace SendMailApp {
 	public class Config {
-		private static Config Instance;
+		private static Config instance;
 
 		public string Smtp { get; set; }			//SMTPサーバー
 		public string MailAddress { get; set; }		//自メールアドレス(送信元)
@@ -19,10 +20,10 @@ namespace SendMailApp {
 		public bool Ssl { get; set; }               //SSL設定
 
 		public static Config GetInstance() {
-			if (Instance == null) {
-				Instance = new Config();
+			if (instance == null) {
+				instance = new Config();
 			}
-			return Instance;
+			return instance;
 		}
 		private Config() {}
 		//初期設定用
@@ -55,17 +56,27 @@ namespace SendMailApp {
 			return true;
 		}
 
+		//シリアル化
 		public void Serialise() {
-			Config cf = Instance;
-			using (var xmlWriter = XmlWriter.Create("config.xml")) {
-				XmlSerializer xml = new XmlSerializer(typeof(Config));
-				xml.Serialize(xmlWriter, cf);
+			try {
+				Config cf = instance;
+				using (var xmlWriter = XmlWriter.Create("config.xml")) {
+					XmlSerializer xml = new XmlSerializer(typeof(Config));
+					xml.Serialize(xmlWriter, cf);
+				}
+			} catch (Exception ) {
+
 			}
 		}
+		//逆シリアル化
 		public void DeSerialise() {
-			using (var xmlReader = XmlReader.Create("config.xml")) {
-				XmlSerializer xml = new XmlSerializer(typeof(Config));
-				Instance = xml.Deserialize(xmlReader) as Config;
+			try {
+				using (var xmlReader = XmlReader.Create("config.xml")) {
+					XmlSerializer xml = new XmlSerializer(typeof(Config));
+					instance = xml.Deserialize(xmlReader) as Config;
+				}
+			} catch (Exception ) {
+
 			}
 		}
 		
