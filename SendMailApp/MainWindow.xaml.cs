@@ -28,11 +28,6 @@ namespace SendMailApp {
 			InitializeComponent();
 			sc.SendCompleted += Sc_SendCompleted;
 		}
-
-		private void Window_Loaded(object sender, RoutedEventArgs e) {
-			
-		}
-
 		private void Sc_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e) {
 			if (e.Cancelled) {
 				MessageBox.Show("送信はキャンセルされました");
@@ -87,6 +82,11 @@ namespace SendMailApp {
 			
 		}
 
-
+		private void Window_Loaded(object sender, RoutedEventArgs e) {
+			Config.GetInstance().DeSerialise();
+		}
+		private void Window_Closed(object sender, EventArgs e) {
+			Config.GetInstance().Serialise();
+		}
 	}
 }
