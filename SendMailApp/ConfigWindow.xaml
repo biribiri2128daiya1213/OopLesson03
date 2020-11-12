@@ -28,19 +28,19 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="SMTPサーバー：" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox x:Name="tbSmtp" Grid.Column="1" Margin="5,15"/>
+                <TextBox x:Name="tbSmtp" Grid.Column="1" Margin="5,15" TextChanged="TextChanged"/>
 
                 <TextBlock Text="ユーザー名：" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="5,15"/>
+                <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="5,15" TextChanged="TextChanged"/>
 
                 <TextBlock Text="ポート：" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox x:Name="tbPort" Grid.Column="3" Margin="5,15"/>
+                <TextBox x:Name="tbPort" Grid.Column="3" Margin="5,15" TextChanged="TextChanged"/>
 
                 <TextBlock Text="パスワード：" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <PasswordBox x:Name="tbPassWord" Grid.Row="1" Grid.Column="3" Margin="5,15"/>
+                <PasswordBox x:Name="tbPassWord" Grid.Row="1" Grid.Column="3" Margin="5,15" PasswordChanged="TextChanged"/>
 
                 <CheckBox x:Name="cbSsl" Grid.Row="2" Grid.Column="3" Content="SSL有効"
-                          VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                          VerticalAlignment="Center" HorizontalAlignment="Center" Click="TextChanged"/>
             </Grid>
         </GroupBox>
         <GroupBox Grid.Row="1" Header="ユーザー情報" Margin="5,10" BorderBrush="Black">
@@ -57,7 +57,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="送信元：" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox x:Name="tbSender" Grid.Row="1" Grid.Column="1" Margin="5,10"/>
+                <TextBox x:Name="tbSender" Grid.Row="1" Grid.Column="1" Margin="5,10" TextChanged="TextChanged"/>
             </Grid>
         </GroupBox>
         <Grid Grid.Row="2">

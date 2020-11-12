@@ -18,8 +18,13 @@ namespace SendMailApp {
 	/// ConfigWindow.xaml の相互作用ロジック
 	/// </summary>
 	public partial class ConfigWindow : Window {
+		public bool flag = false;
 		public ConfigWindow() {
 			InitializeComponent();
+		}
+
+		private void TextChanged(object sender, RoutedEventArgs e) {
+			flag = true;
 		}
 
 		private void btDefault_Click(object sender, RoutedEventArgs e) {
@@ -32,6 +37,14 @@ namespace SendMailApp {
 		}
 
 		private void btApply_Click(object sender, RoutedEventArgs e) {
+			if (Icheck()) {
+				MessageBox.Show("未入力の項目があります");
+			} else {
+				Apply();
+			}
+		}
+
+		private void Apply() {
 			Config.GetInstance().UpdateStatus(
 			tbSmtp.Text,
 			tbName.Text,//tbSender
@@ -39,16 +52,36 @@ namespace SendMailApp {
 			int.Parse(tbPort.Text),
 			cbSsl.IsChecked ?? false
 			);
-			
+			FlagChange();
 		}
+
 		//キャンセルボタン
 		private void brCancel_Click(object sender, RoutedEventArgs e) {
-			this.Close();
+			if (Icheck()) {
+				MessageBox.Show("未入力の項目があります");
+			} else {
+				if (Ucheck()) {
+					MessageBoxResult result = MessageBox.Show
+						("変更を保存しますか？", "保存", MessageBoxButton.YesNo, MessageBoxImage.Question);
+					if (result == MessageBoxResult.Yes) {
+						Apply();
+						this.Close();
+					} else {
+						this.Close();
+					}
+				} else {
+					this.Close();
+				}
+			}
 		}
 		//OKボタン
 		private void btOk_Click(object sender, RoutedEventArgs e) {
-			btApply_Click(sender, e);
-			this.Close();
+			if (Icheck()) {
+				MessageBox.Show("未入力の項目があります");
+			} else {
+				Apply();
+				this.Close();
+			}
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -58,6 +91,21 @@ namespace SendMailApp {
 			tbSender.Text = tbName.Text = cf.MailAddress;
 			tbPort.Text = cf.Port.ToString();
 			cbSsl.IsChecked = cf.Ssl;
+			flag = false;
+		}
+		//データ入力確認(空白があればtrue)
+		public bool Icheck() {
+			return (tbSmtp.Text == "" || tbPort.Text == "" ||
+				tbName.Text == "" || tbPassWord.Password == "" || tbSender.Text == "");
+		}
+		//データ変更確認(変更があればtrue)
+		public bool Ucheck() {
+			return flag;
+		}
+
+		public void FlagChange() {
+			MainWindow mw = new MainWindow();
+			flag = !flag;
 		}
 	}
 }

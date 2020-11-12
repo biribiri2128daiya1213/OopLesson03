@@ -58,27 +58,22 @@ namespace SendMailApp {
 
 		//シリアル化
 		public void Serialise() {
-			try {
-				Config cf = instance;
-				using (var xmlWriter = XmlWriter.Create("config.xml")) {
-					XmlSerializer xml = new XmlSerializer(typeof(Config));
-					xml.Serialize(xmlWriter, cf);
-				}
-			} catch (Exception ) {
-
+			using (var xmlWriter = XmlWriter.Create("config.xml")) {
+				XmlSerializer xml = new XmlSerializer(typeof(Config));
+				xml.Serialize(xmlWriter, instance);
 			}
 		}
 		//逆シリアル化
 		public void DeSerialise() {
-			try {
-				using (var xmlReader = XmlReader.Create("config.xml")) {
-					XmlSerializer xml = new XmlSerializer(typeof(Config));
-					instance = xml.Deserialize(xmlReader) as Config;
-				}
-			} catch (Exception ) {
-
+			using (var xmlReader = XmlReader.Create("config.xml")) {
+				XmlSerializer xml = new XmlSerializer(typeof(Config));
+				instance = xml.Deserialize(xmlReader) as Config;
 			}
 		}
-		
+
+		//設定されていればtrue
+		public bool IsXmlSave() {
+			return (instance.Smtp != null && instance.MailAddress != null && instance.PassWord != null);
+		}
 	}
 }

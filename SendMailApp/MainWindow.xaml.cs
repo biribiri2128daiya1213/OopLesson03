@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -23,6 +24,7 @@ namespace SendMailApp {
 
 		SmtpClient sc = new SmtpClient();
 		Config config = Config.GetInstance();
+		
 
 		public MainWindow() {
 			InitializeComponent();
@@ -77,16 +79,32 @@ namespace SendMailApp {
 		}
 
 		private void btConfig_Click(object sender, RoutedEventArgs e) {
+			ConfigWindowShow();
+
+		}
+
+		private static void ConfigWindowShow() {
 			ConfigWindow configWindow = new ConfigWindow();
 			configWindow.ShowDialog();
-			
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
-			Config.GetInstance().DeSerialise();
+			try {
+				Config.GetInstance().DeSerialise();
+				ConfigWindow cw = new ConfigWindow();
+			} catch (FileNotFoundException){
+				ConfigWindowShow();
+			} catch (Exception ex) {
+				MessageBox.Show(ex.Message);
+			}
 		}
 		private void Window_Closed(object sender, EventArgs e) {
-			Config.GetInstance().Serialise();
+			Config cf = Config.GetInstance();
+			if (cf.IsXmlSave()) {
+				Config.GetInstance().Serialise();
+			}
 		}
+
+		
 	}
 }
