@@ -61,6 +61,7 @@ namespace SendMailApp {
 					msg.Bcc.Add(tbBcc.Text);
 				}
 
+
 				sc.Host = cf.Smtp; //smtpサーバの設定
 				sc.Port = cf.Port;
 				sc.EnableSsl = cf.Ssl;
@@ -115,7 +116,7 @@ namespace SendMailApp {
 		}
 
 		private void btDel_Click(object sender, RoutedEventArgs e) {
-
+			lbTemp.Items.Remove(lbTemp.SelectedItem);
 		}
 	}
 }
