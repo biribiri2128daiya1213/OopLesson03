@@ -60,8 +60,10 @@ namespace SendMailApp {
 				if (tbBcc.Text != "") {
 					msg.Bcc.Add(tbBcc.Text);
 				}
-
-
+				foreach (string n in lbTemp.Items) {
+					Attachment attachment = new Attachment(n);
+					msg.Attachments.Add(attachment);
+				}
 				sc.Host = cf.Smtp; //smtpサーバの設定
 				sc.Port = cf.Port;
 				sc.EnableSsl = cf.Ssl;
