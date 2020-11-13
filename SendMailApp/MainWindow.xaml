@@ -5,34 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SendMailApp"
         mc:Ignorable="d"
-        Title="メール送信アプリ" Height="400" Width="600" Background="Azure" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="メール送信アプリ" Height="500" Width="800" Background="Azure" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="8*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="件名：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <TextBox x:Name="tbTitle" Grid.Column="1" Margin="4" FontSize="18"/>
 
         <TextBlock Grid.Row="1" Text="To  ：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbTo" Grid.Row="1" Grid.Column="2" Margin="4" FontSize="18"/>
+        <TextBox x:Name="tbTo" Grid.Row="1" Grid.Column="1" Margin="4" FontSize="18"/>
 
         <TextBlock Grid.Row="2" Text="Cc  ：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbCc" Grid.Row="2" Grid.Column="2" Margin="4" FontSize="18"/>
+        <TextBox x:Name="tbCc" Grid.Row="2" Grid.Column="1" Margin="4" FontSize="18"/>
 
         <TextBlock Grid.Row="3" Text="Bcc ：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbBcc" Grid.Row="3" Grid.Column="2" Margin="4" FontSize="18"/>
+        <TextBox x:Name="tbBcc" Grid.Row="3" Grid.Column="1" Margin="4" FontSize="18"/>
 
         <TextBlock Grid.Row="4" Text="本文：" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbBody" Grid.Row="4" Grid.Column="2" Margin="4" FontSize="18"/>
+        <TextBox x:Name="tbBody" TextWrapping="Wrap" AcceptsReturn="True" Grid.ColumnSpan="3" Grid.Row="4" Grid.Column="1" Margin="4" FontSize="18"/>
+
+        <TextBlock Grid.Column="2" Text="添付ファイル：" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <ListBox Grid.RowSpan="4" Grid.Column="3" x:Name="lbTemp" Margin="4"/>
+        <Button x:Name="btAdd" Content="追加" Grid.Row="2" Grid.Column="2" Margin="4" Click="btAdd_Click"/>
+        <Button x:Name="btDel" Content="削除" Grid.Row="3" Grid.Column="2" Margin="4" Click="btDel_Click"/>
 
         <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="btCancel" Content="キャンセル" Width="100" Margin="5" Click="btCancel_Click"/>

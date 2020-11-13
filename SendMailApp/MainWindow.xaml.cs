@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,9 +24,7 @@ namespace SendMailApp {
 	public partial class MainWindow : Window {
 
 		SmtpClient sc = new SmtpClient();
-		Config config = Config.GetInstance();
 		
-
 		public MainWindow() {
 			InitializeComponent();
 			sc.SendCompleted += Sc_SendCompleted;
@@ -41,7 +40,7 @@ namespace SendMailApp {
 		private void btOK_Click(object sender, RoutedEventArgs e) {
 			try {
 				//MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text, tbTitle.Text, tbBody.Text);
-
+				Config cf = Config.GetInstance();
 				char[] separation = " ;/，、".ToArray();
 
 				foreach (var s in separation) {
@@ -50,10 +49,10 @@ namespace SendMailApp {
 					tbBcc.Text = tbBcc.Text.Replace(s.ToString(), ",");
 				}
 
-				MailMessage msg = new MailMessage(config.MailAddress, tbTo.Text);
-
-				msg.Subject = tbTitle.Text; //件名
-				msg.Body = tbBody.Text; //本文
+				MailMessage msg = new MailMessage(cf.MailAddress, tbTo.Text) {
+					Subject = tbTitle.Text, //件名
+					Body = tbBody.Text //本文
+				};
 
 				if (tbCc.Text != "") {
 					msg.CC.Add(tbCc.Text);
@@ -62,10 +61,10 @@ namespace SendMailApp {
 					msg.Bcc.Add(tbBcc.Text);
 				}
 
-				sc.Host = config.Smtp; //smtpサーバの設定
-				sc.Port = config.Port;
-				sc.EnableSsl = config.Ssl;
-				sc.Credentials = new NetworkCredential(config.MailAddress, config.PassWord);
+				sc.Host = cf.Smtp; //smtpサーバの設定
+				sc.Port = cf.Port;
+				sc.EnableSsl = cf.Ssl;
+				sc.Credentials = new NetworkCredential(cf.MailAddress, cf.PassWord);
 
 				sc.SendMailAsync(msg); //送信
 
@@ -105,6 +104,18 @@ namespace SendMailApp {
 			}
 		}
 
-		
+		private void btAdd_Click(object sender, RoutedEventArgs e) {
+			var dialog = new OpenFileDialog();
+
+			dialog.Filter = "テキストファイル (*.txt)|*.txt|全てのファイル (*.*)|*.*";
+
+			if (dialog.ShowDialog() == true) {
+				lbTemp.Items.Add(dialog.FileName);
+			}
+		}
+
+		private void btDel_Click(object sender, RoutedEventArgs e) {
+
+		}
 	}
 }

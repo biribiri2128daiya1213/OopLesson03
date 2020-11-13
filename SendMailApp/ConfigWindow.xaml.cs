@@ -52,7 +52,7 @@ namespace SendMailApp {
 			int.Parse(tbPort.Text),
 			cbSsl.IsChecked ?? false
 			);
-			FlagChange();
+			flag = true;
 		}
 
 		//キャンセルボタン
@@ -101,11 +101,6 @@ namespace SendMailApp {
 		//データ変更確認(変更があればtrue)
 		public bool Ucheck() {
 			return flag;
-		}
-
-		public void FlagChange() {
-			MainWindow mw = new MainWindow();
-			flag = !flag;
 		}
 	}
 }
