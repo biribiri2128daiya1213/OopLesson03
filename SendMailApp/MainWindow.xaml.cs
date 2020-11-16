@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -39,20 +40,21 @@ namespace SendMailApp {
 
 		private void btOK_Click(object sender, RoutedEventArgs e) {
 			try {
-				//MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text, tbTitle.Text, tbBody.Text);
 				Config cf = Config.GetInstance();
-				char[] separation = " ;/，、".ToArray();
+				char[] separation = " ;/，、　".ToArray();
 
 				foreach (var s in separation) {
 					tbTo.Text = tbTo.Text.Replace(s.ToString(), ",");
 					tbCc.Text = tbCc.Text.Replace(s.ToString(), ",");
 					tbBcc.Text = tbBcc.Text.Replace(s.ToString(), ",");
 				}
-
-				MailMessage msg = new MailMessage(cf.MailAddress, tbTo.Text) {
-					Subject = tbTitle.Text, //件名
-					Body = tbBody.Text //本文
+				MailAddress from = new MailAddress(cf.MailAddress, cf.UserName);
+				MailMessage msg = new MailMessage {
+					From = from,
+					Subject = tbTitle.Text,	//件名
+					Body = tbBody.Text		//本文
 				};
+				msg.To.Add(tbTo.Text);
 
 				if (tbCc.Text != "") {
 					msg.CC.Add(tbCc.Text);
@@ -60,10 +62,11 @@ namespace SendMailApp {
 				if (tbBcc.Text != "") {
 					msg.Bcc.Add(tbBcc.Text);
 				}
+
 				foreach (string n in lbTemp.Items) {
-					Attachment attachment = new Attachment(n);
-					msg.Attachments.Add(attachment);
+					msg.Attachments.Add(new Attachment(n));
 				}
+
 				sc.Host = cf.Smtp; //smtpサーバの設定
 				sc.Port = cf.Port;
 				sc.EnableSsl = cf.Ssl;
@@ -75,21 +78,20 @@ namespace SendMailApp {
 				MessageBox.Show(ex.Message); 
 			}
 		}
-
+		//キャンセルボタン
 		private void btCancel_Click(object sender, RoutedEventArgs e) {
 			sc.SendAsyncCancel();
 		}
-
+		//設定ボタン
 		private void btConfig_Click(object sender, RoutedEventArgs e) {
 			ConfigWindowShow();
-
 		}
 
 		private static void ConfigWindowShow() {
 			ConfigWindow configWindow = new ConfigWindow();
 			configWindow.ShowDialog();
 		}
-
+		//ロード時
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
 			try {
 				Config.GetInstance().DeSerialise();
@@ -100,23 +102,28 @@ namespace SendMailApp {
 				MessageBox.Show(ex.Message);
 			}
 		}
+		//閉じたあと
 		private void Window_Closed(object sender, EventArgs e) {
-			Config cf = Config.GetInstance();
-			if (cf.IsXmlSave()) {
-				Config.GetInstance().Serialise();
+			try {
+				ConfigWindow cw = new ConfigWindow();
+				if (cw.IsXmlSaved()) {
+					Config.GetInstance().Serialise();
+				}
+			} catch (Exception ex) {
+				MessageBox.Show(ex.Message);
 			}
 		}
-
+		//追加ボタン
 		private void btAdd_Click(object sender, RoutedEventArgs e) {
-			var dialog = new OpenFileDialog();
-
-			dialog.Filter = "テキストファイル (*.txt)|*.txt|全てのファイル (*.*)|*.*";
+			var dialog = new OpenFileDialog {
+				Filter = "テキストファイル (*.txt)|*.txt|全てのファイル (*.*)|*.*"
+			};
 
 			if (dialog.ShowDialog() == true) {
 				lbTemp.Items.Add(dialog.FileName);
 			}
 		}
-
+		//削除ボタン
 		private void btDel_Click(object sender, RoutedEventArgs e) {
 			lbTemp.Items.Remove(lbTemp.SelectedItem);
 		}

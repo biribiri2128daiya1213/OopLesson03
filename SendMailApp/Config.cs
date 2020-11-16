@@ -14,7 +14,8 @@ namespace SendMailApp {
 		private static Config instance;
 
 		public string Smtp { get; set; }			//SMTPサーバー
-		public string MailAddress { get; set; }		//自メールアドレス(送信元)
+		public string MailAddress { get; set; }     //自メールアドレス(送信元)
+		public string UserName { get; set; }		//ユーザーネーム
 		public string PassWord { get; set; }		//パスワード
 		public int Port { get; set; }				//ポート番号
 		public bool Ssl { get; set; }               //SSL設定
@@ -30,6 +31,7 @@ namespace SendMailApp {
 		public void DefaultSet() {
 			Smtp = "smtp.gmail.com";
 			MailAddress = "ojsinfosys01@gmail.com";
+			UserName = "ojsinfosys01@gmail.com";
 			PassWord = "ojsInfosys2020";
 			Port = 587;
 			Ssl = true;
@@ -39,6 +41,7 @@ namespace SendMailApp {
 			Config obj = new Config {
 				Smtp = "smtp.gmail.com",
 				MailAddress = "ojsinfosys01@gmail.com",
+				UserName = "ojsinfosys01@gmail.com",
 				PassWord = "ojsInfosys2020",
 				Port = 587,
 				Ssl = true,
@@ -47,9 +50,10 @@ namespace SendMailApp {
 
 		}
 		//設定データ更新
-		public bool UpdateStatus(string smtp,string mailAddress,string passWord,int port,bool ssl) {
+		public bool UpdateStatus(string smtp,string mailAddress,string username,string passWord,int port,bool ssl) {
 			this.Smtp = smtp;
 			this.MailAddress = mailAddress;
+			this.UserName = username;
 			this.PassWord = passWord;
 			this.Port = port;
 			this.Ssl = ssl;
@@ -69,11 +73,6 @@ namespace SendMailApp {
 				XmlSerializer xml = new XmlSerializer(typeof(Config));
 				instance = xml.Deserialize(xmlReader) as Config;
 			}
-		}
-
-		//設定されていればtrue
-		public bool IsXmlSave() {
-			return (instance.Smtp != null && instance.MailAddress != null && instance.PassWord != null);
 		}
 	}
 }

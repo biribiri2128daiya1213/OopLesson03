@@ -22,20 +22,21 @@ namespace SendMailApp {
 		public ConfigWindow() {
 			InitializeComponent();
 		}
-
+		//テキスト変更時
 		private void TextChanged(object sender, RoutedEventArgs e) {
 			flag = true;
 		}
-
+		//初期値ボタン
 		private void btDefault_Click(object sender, RoutedEventArgs e) {
 			Config cf = (Config.GetInstance()).getDefaultStatus();
-			tbName.Text = tbSender.Text = cf.MailAddress;
+			tbName.Text = cf.UserName;
+			tbSender.Text = cf.MailAddress;
 			tbSmtp.Text = cf.Smtp;
 			tbPassWord.Password = cf.PassWord;
 			tbPort.Text = cf.Port.ToString();
 			cbSsl.IsChecked = cf.Ssl;
 		}
-
+		//更新ボタン
 		private void btApply_Click(object sender, RoutedEventArgs e) {
 			if (Icheck()) {
 				MessageBox.Show("未入力の項目があります");
@@ -43,16 +44,17 @@ namespace SendMailApp {
 				Apply();
 			}
 		}
-
+		//更新メソッド
 		private void Apply() {
 			Config.GetInstance().UpdateStatus(
 			tbSmtp.Text,
-			tbName.Text,//tbSender
+			tbSender.Text,
+			tbName.Text,
 			tbPassWord.Password,
 			int.Parse(tbPort.Text),
 			cbSsl.IsChecked ?? false
 			);
-			flag = true;
+			flag = false;
 		}
 
 		//キャンセルボタン
@@ -60,18 +62,7 @@ namespace SendMailApp {
 			if (Icheck()) {
 				MessageBox.Show("未入力の項目があります");
 			} else {
-				if (Ucheck()) {
-					MessageBoxResult result = MessageBox.Show
-						("変更を保存しますか？", "保存", MessageBoxButton.YesNo, MessageBoxImage.Question);
-					if (result == MessageBoxResult.Yes) {
-						Apply();
-						this.Close();
-					} else {
-						this.Close();
-					}
-				} else {
-					this.Close();
-				}
+				this.Close();
 			}
 		}
 		//OKボタン
@@ -83,13 +74,14 @@ namespace SendMailApp {
 				this.Close();
 			}
 		}
-
+		//ロード時
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
 			Config cf = Config.GetInstance();
 			tbSmtp.Text = cf.Smtp;
 			tbPassWord.Password = cf.PassWord;
-			tbSender.Text = tbName.Text = cf.MailAddress;
-			tbPort.Text = cf.Port.ToString();
+			tbSender.Text = cf.MailAddress;
+			tbName.Text = cf.UserName;
+		    tbPort.Text = cf.Port.ToString();
 			cbSsl.IsChecked = cf.Ssl;
 			flag = false;
 		}
@@ -101,6 +93,22 @@ namespace SendMailApp {
 		//データ変更確認(変更があればtrue)
 		public bool Ucheck() {
 			return flag;
+		}
+		//xml生成(設定されていればtrue)
+		public bool IsXmlSaved() {
+			Config cf = Config.GetInstance();
+			return (cf.Smtp != null && cf.MailAddress != null && cf.UserName != null && cf.PassWord != null && cf.Port.ToString() != "");
+		}
+		//閉じる時
+		private void Window_Closing(object sender, CancelEventArgs e) {
+			if (Ucheck()) {
+				MessageBoxResult result = MessageBox.Show
+					("変更を保存しますか？", "保存", MessageBoxButton.YesNo, MessageBoxImage.Question);
+				if (result == MessageBoxResult.Yes) {
+					Apply();
+				}
+			}
+			
 		}
 	}
 }
